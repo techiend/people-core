@@ -24,6 +24,3 @@ CREATE TABLE PRICES (
     CONSTRAINT fk_prices_product FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCT(id),
     CONSTRAINT pk_prices PRIMARY KEY (BRAND_ID, PRODUCT_ID, START_DATE)
 );
-
-CREATE SEQUENCE brand_id_seq as integer;
-CREATE SEQUENCE product_id_seq as integer;

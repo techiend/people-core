@@ -6,13 +6,24 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import org.springframework.stereotype.Component;
 
 /**
  * Component used to map {@link Price}
  */
-@Component
 public class PriceMapper {
+
+  /**
+   * Default constructor for the class.
+   * <p>
+   * This constructor initializes an instance without any parameters. It is typically used
+   * when no initial configuration is required. Additional setup can be performed via
+   * setters or other initialization methods.
+   * </p>
+   */
+  private PriceMapper() {
+    // Empty constructor
+    throw new IllegalStateException("Utility mapper class");
+  }
 
   /**
    * Map {@link Price} to {@link PriceResponse}.
@@ -24,7 +35,7 @@ public class PriceMapper {
     return PriceResponse.builder()
         .brandId(price.getBrand().getId())
         .productId(price.getProduct().getId())
-        .price(price.getPrice())
+        .price(price.getValue())
         .priceList(price.getPriceList())
         .startDate(price.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
         .endDate(price.getEndDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))

@@ -64,7 +64,7 @@ public class Price {
    * Price value.
    */
   @Column(name = "PRICE")
-  private Float price;
+  private Float value;
 
   /**
    * Price currency.

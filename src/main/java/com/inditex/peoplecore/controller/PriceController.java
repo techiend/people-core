@@ -1,9 +1,10 @@
 package com.inditex.peoplecore.controller;
 
+import com.inditex.peoplecore.dto.PriceResponse;
 import com.inditex.peoplecore.service.PriceService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.time.LocalDateTime;
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,15 @@ public class PriceController {
   /**
    * Price service.
    */
-  @Autowired
   private PriceService priceService;
+
+  /**
+   * Price Controller Constructor.
+   * @param priceService Price service.
+   */
+  public PriceController(PriceService priceService) {
+    this.priceService = priceService;
+  }
 
   /**
    * Find all prices.
@@ -30,7 +38,7 @@ public class PriceController {
    * @return {@link ResponseEntity} with List of prices if found.
    */
   @GetMapping("/prices")
-  public ResponseEntity<?>findAll() {
+  public ResponseEntity<List<PriceResponse>>findAll() {
     return priceService.findAll();
   }
 
@@ -43,7 +51,7 @@ public class PriceController {
    * @return {@link ResponseEntity} with List of prices if found.
    */
   @GetMapping("/price")
-  public ResponseEntity<?>findPrice(
+  public ResponseEntity<PriceResponse>findPrice(
       @RequestParam(name = "date") final LocalDateTime date,
       @RequestParam(name = "productId") final Integer productId,
       @RequestParam(name = "brandId") final Integer brandId) {

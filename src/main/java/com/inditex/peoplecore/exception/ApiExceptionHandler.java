@@ -20,7 +20,7 @@ public class ApiExceptionHandler {
    * @return {@link ResponseEntity} with {@link StandardizedApiExceptionResponse} body.
    */
   @ExceptionHandler(Exception.class)
-  public ResponseEntity<?> handleException(Exception ex) {
+  public ResponseEntity<StandardizedApiExceptionResponse> handleException(Exception ex) {
     StandardizedApiExceptionResponse standardizedApiExceptionResponse =
         new StandardizedApiExceptionResponse("GENERAL", "General Error", "000", ex.getMessage());
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(standardizedApiExceptionResponse);
