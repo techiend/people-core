@@ -7,10 +7,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Api exception handler.
+ */
 @Hidden
 @RestControllerAdvice
 public class ApiExceptionHandler {
 
+  /**
+   * Handle generic {@link Exception}.
+   * @param ex generic expection.
+   * @return {@link ResponseEntity} with {@link StandardizedApiExceptionResponse} body.
+   */
   @ExceptionHandler(Exception.class)
   public ResponseEntity<?> handleException(Exception ex) {
     StandardizedApiExceptionResponse standardizedApiExceptionResponse =
