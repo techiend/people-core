@@ -7,13 +7,25 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+/**
+ * People-Core main Application.
+ */
 @SpringBootApplication
 public class PeopleCoreApplication {
 
+  /**
+   * Microservice startup entrypoint.
+   *
+   * @param args command line arguments.
+   */
   public static void main(String[] args) {
     SpringApplication.run(PeopleCoreApplication.class, args);
   }
 
+  /**
+   * OpenAPI info configuration.
+   * @return {@link OpenAPI} information
+   */
   @Bean
   public OpenAPI peopleCoreOpenAPI() {
     return new OpenAPI()
