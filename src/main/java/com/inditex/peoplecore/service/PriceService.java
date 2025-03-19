@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -23,15 +22,22 @@ public class PriceService {
   /**
    * Price entity repository.
    */
-  @Autowired
   private PriceRepository priceRepository;
+
+  /**
+   * Price Service Constructor.
+   * @param priceRepository Price entity repository.
+   */
+  public PriceService(PriceRepository priceRepository) {
+    this.priceRepository = priceRepository;
+  }
 
   /**
    * Find all prices.
    *
    * @return {@link ResponseEntity} with List of prices if found.
    */
-  public ResponseEntity<?> findAll() {
+  public ResponseEntity<List<PriceResponse>> findAll() {
     List<Price> prices = priceRepository.findAllWithRelations();
     if (prices.isEmpty()) {
       // No content to response.
@@ -49,7 +55,7 @@ public class PriceService {
    * @param brandId Brand identifier.
    * @return {@link ResponseEntity} with List of prices if found.
    */
-  public ResponseEntity<?> findPrice(LocalDateTime date, Integer productId, Integer brandId) {
+  public ResponseEntity<PriceResponse> findPrice(LocalDateTime date, Integer productId, Integer brandId) {
     // All search parameters exist, search.
     Optional<Price> optionalPrice = priceRepository.findByDateAndBrandIdAndProductId(date, brandId, productId);
     if (optionalPrice.isPresent()) {

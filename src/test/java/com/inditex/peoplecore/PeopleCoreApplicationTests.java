@@ -16,7 +16,7 @@ class PeopleCoreApplicationTests {
   private int port;
 
   @BeforeEach
-  public void setup() {
+  void setup() {
     // Configura la URL base del servicio
     RestAssured.baseURI = "http://localhost:" + port;
   }
@@ -25,7 +25,7 @@ class PeopleCoreApplicationTests {
    * Prueba 1: Realizar una petición a las 10:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
    */
   @Test
-  public void testPriceAt10Day14() {
+  void testPriceAt10Day14() {
     given()
         .param("date", "2020-06-14T10:00:00")
         .param("productId", 35455)
@@ -43,7 +43,7 @@ class PeopleCoreApplicationTests {
    * Prueba 2: Realizar una petición a las 16:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
    */
   @Test
-  public void testPriceAt16Day14() {
+  void testPriceAt16Day14() {
     given()
         .param("date", "2020-06-14T16:00:00")
         .param("productId", 35455)
@@ -61,7 +61,7 @@ class PeopleCoreApplicationTests {
    * Prueba 3: Realizar una petición a las 21:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
    */
   @Test
-  public void testPriceAt21Day14() {
+  void testPriceAt21Day14() {
     given()
         .param("date", "2020-06-14T21:00:00")
         .param("productId", 35455)
@@ -79,7 +79,7 @@ class PeopleCoreApplicationTests {
    * Prueba 4: Realizar una petición a las 10:00 del día 15 para el producto 35455 y la marca 1 (ZARA).
    */
   @Test
-  public void testPriceAt10Day15() {
+  void testPriceAt10Day15() {
     given()
         .param("date", "2020-06-15T10:00:00")
         .param("productId", 35455)
@@ -97,7 +97,7 @@ class PeopleCoreApplicationTests {
    * Prueba 5: Realizar una petición a las 21:00 del día 16 para el producto 35455 y la marca 1 (ZARA).
    */
   @Test
-  public void testPriceAt21Day15() {
+  void testPriceAt21Day15() {
     given()
         .param("date", "2020-06-15T21:00:00")
         .param("productId", 35455)
@@ -109,6 +109,33 @@ class PeopleCoreApplicationTests {
         .body("productId", equalTo(35455))
         .body("brandId", equalTo(1))
         .body("price", equalTo(38.95F));
+  }
+
+  /**
+   * Realizar una peticion para un producto o marca no existente.
+   */
+  @Test
+  void testPriceNotFound() {
+    given()
+        .param("date", "2020-06-15T21:00:00")
+        .param("productId", 123942)
+        .param("brandId", 97462)
+        .when()
+        .get("/price")
+        .then()
+        .statusCode(404);
+  }
+
+  /**
+   * Realizar una peticion de todos los precios existentes insertados por la migracion.
+   */
+  @Test
+  void testAllPrices() {
+    given()
+        .when()
+        .get("/prices")
+        .then()
+        .statusCode(200);
   }
 
 }
