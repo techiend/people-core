@@ -10,9 +10,7 @@ import com.inditex.peoplecore.dto.PriceResponse;
 import com.inditex.peoplecore.exception.ExceptionCodeEnum;
 import com.inditex.peoplecore.exception.PriceNotFoundException;
 import com.inditex.peoplecore.repository.PriceRepository;
-import com.inditex.peoplecore.repository.entity.Brand;
 import com.inditex.peoplecore.repository.entity.Price;
-import com.inditex.peoplecore.repository.entity.Product;
 import com.inditex.peoplecore.service.implementation.PriceServiceImpl;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -36,7 +34,7 @@ class PriceServiceTest {
 
   @Test
   void testFindAllWithNoPrices() {
-    when(priceRepository.findAllWithRelations()).thenReturn(Collections.emptyList());
+    when(priceRepository.findAll()).thenReturn(Collections.emptyList());
 
     PriceNotFoundException exception = assertThrows(PriceNotFoundException.class, () -> {
       priceServiceImp.findAll();
@@ -52,15 +50,9 @@ class PriceServiceTest {
     Integer productId = 35455;
     Integer brandId = 1;
 
-    Product product = new Product();
-    product.setId(productId);
-
-    Brand brand = new Brand();
-    brand.setId(brandId);
-
     Price expectedPrice = new Price();
-    expectedPrice.setProduct(product);
-    expectedPrice.setBrand(brand);
+    expectedPrice.setProduct(productId);
+    expectedPrice.setBrand(brandId);
     expectedPrice.setStartDate(date);
     expectedPrice.setEndDate(LocalDateTime.parse("2020-06-14T23:59:59"));
     expectedPrice.setPriceList(1);
@@ -84,15 +76,9 @@ class PriceServiceTest {
     Integer productId = 35455;
     Integer brandId = 1;
 
-    Product product = new Product();
-    product.setId(productId);
-
-    Brand brand = new Brand();
-    brand.setId(brandId);
-
     Price expectedPrice1 = new Price();
-    expectedPrice1.setProduct(product);
-    expectedPrice1.setBrand(brand);
+    expectedPrice1.setProduct(productId);
+    expectedPrice1.setBrand(brandId);
     expectedPrice1.setStartDate(date);
     expectedPrice1.setEndDate(LocalDateTime.parse("2020-12-31T23:59:59"));
     expectedPrice1.setPriceList(1);
@@ -102,8 +88,8 @@ class PriceServiceTest {
 
 
     Price expectedPrice2 = new Price();
-    expectedPrice2.setProduct(product);
-    expectedPrice2.setBrand(brand);
+    expectedPrice2.setProduct(productId);
+    expectedPrice2.setBrand(brandId);
     expectedPrice2.setStartDate(date);
     expectedPrice2.setEndDate(LocalDateTime.parse("2020-06-18T23:59:59"));
     expectedPrice2.setPriceList(1);
@@ -111,7 +97,7 @@ class PriceServiceTest {
     expectedPrice2.setValue(27.99F);
     expectedPrice2.setCurrency("EUR");
 
-    when(priceRepository.findAllWithRelations())
+    when(priceRepository.findAll())
         .thenReturn(List.of(expectedPrice1, expectedPrice2));
 
     List<PriceResponse> priceResponseList = priceServiceImp.findAll();

@@ -36,7 +36,7 @@ public class PriceServiceImpl implements PriceService {
 
   @Override
   public List<PriceResponse> findAll() throws PriceNotFoundException {
-    List<Price> prices = priceRepository.findAllWithRelations();
+    List<Price> prices = priceRepository.findAll();
     if (prices.isEmpty()) {
       // No content to response.
       throw new PriceNotFoundException(

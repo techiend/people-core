@@ -18,9 +18,6 @@
 - - **password:** qwerty
 - - **JDBC URL:** jdbc:h2:mem:core
 
-Se han creado las entidades (tablas) de BRAND y PRODUCT para simular un entorno 
-mas real ademas de reflejar asi una correcta configuración de las relaciones.
-
 Se ha utilizado Swagger como cliente de API para realizar pruebas manuales 
 con parametros customizables.
 

@@ -33,8 +33,8 @@ public class PriceMapper {
    */
   public static PriceResponse map(Price price) {
     return PriceResponse.builder()
-        .brandId(price.getBrand().getId())
-        .productId(price.getProduct().getId())
+        .brandId(price.getBrand())
+        .productId(price.getProduct())
         .price(price.getValue())
         .priceList(price.getPriceList())
         .startDate(price.getStartDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
