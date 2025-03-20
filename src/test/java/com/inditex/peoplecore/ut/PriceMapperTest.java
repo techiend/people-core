@@ -39,7 +39,6 @@ class PriceMapperTest {
 
   @Test
   void testMapSinglePrice() {
-    // Dado: Una entidad Price con valores válidos
     Brand brand = new Brand();
     brand.setId(1);
 
@@ -54,10 +53,8 @@ class PriceMapperTest {
     price.setStartDate(LocalDateTime.of(2025, 1, 1, 0, 0));
     price.setEndDate(LocalDateTime.of(2025, 12, 31, 23, 59));
 
-    // Cuando: Mapeo el Price a PriceResponse
     PriceResponse response = PriceMapper.map(price);
 
-    // Entonces: Verifico que el mapeo es correcto
     assertNotNull(response);
     assertEquals(1, response.getBrandId());
     assertEquals(35455, response.getProductId());
@@ -69,7 +66,6 @@ class PriceMapperTest {
 
   @Test
   void testMapPriceList() {
-    // Dado: Una lista de entidades Price
     Brand brand = new Brand();
     brand.setId(1);
 
@@ -94,10 +90,8 @@ class PriceMapperTest {
 
     List<Price> prices = Arrays.asList(price1, price2, null);
 
-    // Cuando: Mapeo la lista
     List<PriceResponse> responses = PriceMapper.map(prices);
 
-    // Entonces: Verifico que la lista se mapeó correctamente
     assertEquals(2, responses.size());
     assertEquals(35.50f, responses.get(0).getPrice());
     assertEquals(40.00f, responses.get(1).getPrice());

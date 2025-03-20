@@ -30,8 +30,36 @@ class PriceIntegrationTest {
   private PriceRepository priceRepository;
 
   @Test
+  void testPersistPrices() {
+    Product product = new Product();
+    product.setName("Camiseta");
+    productRepository.save(product);
+
+    Brand brand = new Brand();
+    brand.setName("Zara");
+
+    Price price = new Price();
+    price.setProduct(product);
+    price.setBrand(brand);
+    price.setStartDate(LocalDateTime.of(2025, 1, 1, 0, 0));
+    price.setEndDate(LocalDateTime.of(2025, 12, 31, 23, 59));
+    price.setPriceList(1);
+    price.setPriority(1);
+    price.setValue(35.50f);
+    price.setCurrency("EUR");
+
+    brand.setPrices(List.of(price));
+
+    Brand savedBrand = brandRepository.save(brand);
+
+    assertNotNull(savedBrand.getId());
+    assertEquals(1, savedBrand.getPrices().size());
+    assertEquals("Zara", savedBrand.getName());
+    assertEquals(product.getId(), savedBrand.getPrices().get(0).getProduct().getId());
+  }
+
+  @Test
   void testFindPriceByDateAndBrandAndProduct() {
-    // Dado: Una brand y un producto con múltiples precios
     Product product = new Product();
     product.setName("Pantalón");
     productRepository.save(product);
@@ -62,11 +90,9 @@ class PriceIntegrationTest {
 
     priceRepository.saveAll(List.of(priceLowPriority, priceHighPriority));
 
-    // Cuando: Busco el precio en una fecha específica
     LocalDateTime date = LocalDateTime.of(2025, 7, 1, 12, 0);
     Price activePrice = priceRepository.findByDateAndBrandIdAndProductId(date, brand.getId(), product.getId()).orElse(null);
 
-    // Entonces: Obtengo el precio necesario
     assertNotNull(activePrice);
     assertEquals(30.00f, activePrice.getValue());
     assertEquals(1, activePrice.getPriority());
