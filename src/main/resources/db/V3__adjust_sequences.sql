@@ -1,2 +1,0 @@
-CREATE SEQUENCE brand_id_seq START WITH 10;
-CREATE SEQUENCE product_id_seq START WITH 10;

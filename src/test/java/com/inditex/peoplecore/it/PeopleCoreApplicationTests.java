@@ -1,4 +1,4 @@
-package com.inditex.peoplecore;
+package com.inditex.peoplecore.it;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -17,13 +17,9 @@ class PeopleCoreApplicationTests {
 
   @BeforeEach
   void setup() {
-    // Configura la URL base del servicio
     RestAssured.baseURI = "http://localhost:" + port;
   }
 
-  /**
-   * Prueba 1: Realizar una petición a las 10:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
-   */
   @Test
   void testPriceAt10Day14() {
     given()
@@ -39,9 +35,6 @@ class PeopleCoreApplicationTests {
         .body("price", equalTo(35.5F));
   }
 
-  /**
-   * Prueba 2: Realizar una petición a las 16:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
-   */
   @Test
   void testPriceAt16Day14() {
     given()
@@ -57,9 +50,6 @@ class PeopleCoreApplicationTests {
         .body("price", equalTo(25.45F));
   }
 
-  /**
-   * Prueba 3: Realizar una petición a las 21:00 del día 14 para el producto 35455 y la marca 1 (ZARA).
-   */
   @Test
   void testPriceAt21Day14() {
     given()
@@ -75,9 +65,6 @@ class PeopleCoreApplicationTests {
         .body("price", equalTo(35.5F));
   }
 
-  /**
-   * Prueba 4: Realizar una petición a las 10:00 del día 15 para el producto 35455 y la marca 1 (ZARA).
-   */
   @Test
   void testPriceAt10Day15() {
     given()
@@ -93,9 +80,6 @@ class PeopleCoreApplicationTests {
         .body("price", equalTo(30.5F));
   }
 
-  /**
-   * Prueba 5: Realizar una petición a las 21:00 del día 16 para el producto 35455 y la marca 1 (ZARA).
-   */
   @Test
   void testPriceAt21Day15() {
     given()
@@ -111,9 +95,6 @@ class PeopleCoreApplicationTests {
         .body("price", equalTo(38.95F));
   }
 
-  /**
-   * Realizar una peticion para un producto o marca no existente.
-   */
   @Test
   void testPriceNotFound() {
     given()
@@ -126,9 +107,6 @@ class PeopleCoreApplicationTests {
         .statusCode(404);
   }
 
-  /**
-   * Realizar una peticion de todos los precios existentes insertados por la migracion.
-   */
   @Test
   void testAllPrices() {
     given()
@@ -136,6 +114,18 @@ class PeopleCoreApplicationTests {
         .get("/prices")
         .then()
         .statusCode(200);
+  }
+
+  @Test
+  void testFindPriceWithWrongParams() {
+    given()
+        .param("date", "FAKE_DATE")
+        .param("productId", 35455)
+        .param("brandId", 1)
+        .when()
+        .get("/price")
+        .then()
+        .statusCode(500);
   }
 
 }
