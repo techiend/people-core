@@ -3,7 +3,6 @@ package com.inditex.peoplecore.repository;
 import com.inditex.peoplecore.repository.entity.Price;
 import com.inditex.peoplecore.repository.entity.pk.PriceId;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,13 +12,6 @@ import org.springframework.data.repository.query.Param;
  * Price entity repository.
  */
 public interface PriceRepository extends JpaRepository<Price, PriceId> {
-
-  /**
-   * Find all prices with relations.
-   * @return List of price entities.
-   */
-  @Query("SELECT p FROM PRICES p JOIN FETCH p.product JOIN FETCH p.brand")
-  List<Price> findAllWithRelations();
 
   /**
    * Find all prices with search parameters.

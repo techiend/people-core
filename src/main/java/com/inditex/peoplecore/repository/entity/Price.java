@@ -3,11 +3,8 @@ package com.inditex.peoplecore.repository.entity;
 import com.inditex.peoplecore.repository.entity.pk.PriceId;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.IdClass;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import lombok.Data;
 
@@ -20,20 +17,18 @@ import lombok.Data;
 public class Price {
 
   /**
-   * Associated Product.
+   * Associated Product identifier.
    */
   @Id
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Product.class)
-  @JoinColumn(name = "PRODUCT_ID")
-  private Product product;
+  @Column(name = "PRODUCT_ID")
+  private Integer product;
 
   /**
-   * Associated Brand.
+   * Associated Brand identifier.
    */
   @Id
-  @ManyToOne(fetch = FetchType.LAZY, targetEntity = Brand.class)
-  @JoinColumn(name = "BRAND_ID")
-  private Brand brand;
+  @Column(name = "BRAND_ID")
+  private Integer brand;
 
   /**
    * Price start date time.

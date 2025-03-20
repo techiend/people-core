@@ -1,6 +1,7 @@
 package com.inditex.peoplecore.controller;
 
 import com.inditex.peoplecore.dto.PriceResponse;
+import com.inditex.peoplecore.exception.PriceNotFoundException;
 import com.inditex.peoplecore.service.PriceService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.time.LocalDateTime;
@@ -38,8 +39,8 @@ public class PriceController {
    * @return {@link ResponseEntity} with List of prices if found.
    */
   @GetMapping("/prices")
-  public ResponseEntity<List<PriceResponse>>findAll() {
-    return priceService.findAll();
+  public ResponseEntity<List<PriceResponse>>findAll() throws PriceNotFoundException {
+    return ResponseEntity.ok(priceService.findAll());
   }
 
   /**
@@ -54,8 +55,8 @@ public class PriceController {
   public ResponseEntity<PriceResponse>findPrice(
       @RequestParam(name = "date") final LocalDateTime date,
       @RequestParam(name = "productId") final Integer productId,
-      @RequestParam(name = "brandId") final Integer brandId) {
-    return priceService.findPrice(date, productId, brandId);
+      @RequestParam(name = "brandId") final Integer brandId) throws PriceNotFoundException {
+    return ResponseEntity.ok(priceService.findPrice(date, productId, brandId));
   }
 
 }

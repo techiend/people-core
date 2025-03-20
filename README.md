@@ -18,9 +18,6 @@
 - - **password:** qwerty
 - - **JDBC URL:** jdbc:h2:mem:core
 
-Se han creado las entidades (tablas) de BRAND y PRODUCT para simular un entorno 
-mas real ademas de reflejar asi una correcta configuración de las relaciones.
-
 Se ha utilizado Swagger como cliente de API para realizar pruebas manuales 
 con parametros customizables.
 
@@ -42,6 +39,9 @@ La aplicación sigue una arquitectura hexagonal/clean architecture, adaptada al 
 - **Puertos**: Los repositorios y controladores actúan como puertos de entrada/salida.
 - **Adaptadores**: Los controladores (REST) y repositorios (JPA) son adaptadores que conectan el núcleo de la aplicación con el mundo exterior.
 - **Dominio**: Las entidades y los servicios forman el núcleo de la lógica de negocio.
+
+He decidido aplicar esta arquitectura ya que es en la cual tengo mejor control, he utilizado arquitectura hexagonal pero nunca iniciando yo la 
+arquitectura y estructura, siempre a modo de mantenimiento y desarrollo de nuevas funcionalidades sobre esta. 
 
 ```
 src

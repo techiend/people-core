@@ -1,16 +1,3 @@
-INSERT INTO PRODUCT(ID, NAME)
-VALUES (10000, 'Camiseta'),
-       (10001, 'Vaquero'),
-       (10002, 'Abrigo'),
-       (10003, 'Botas'),
-       (10004, 'Bolso');
-
-INSERT INTO BRAND(ID, NAME)
-VALUES (2, 'Pull&Bear'),
-       (3, 'Bershka'),
-       (4, 'Stradivarius'),
-       (5, 'Oysho');
-
 INSERT INTO PRICES(BRAND_ID,START_DATE,END_DATE,PRICE_LIST,PRODUCT_ID,PRIORITY,PRICE,CURR)
 VALUES (2, '2020-06-14 00:00:00', '2020-12-31 23:59:59', 1, 10000, 1, 21.50, 'EUR'),
        (2, '2020-06-14 15:00:00', '2020-06-14 18:30:00', 2, 10000, 1, 15.45, 'EUR'),

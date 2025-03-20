@@ -6,9 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.inditex.peoplecore.dto.PriceResponse;
 import com.inditex.peoplecore.mapper.PriceMapper;
-import com.inditex.peoplecore.repository.entity.Brand;
 import com.inditex.peoplecore.repository.entity.Price;
-import com.inditex.peoplecore.repository.entity.Product;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
@@ -39,25 +37,19 @@ class PriceMapperTest {
 
   @Test
   void testMapSinglePrice() {
-    // Dado: Una entidad Price con valores válidos
-    Brand brand = new Brand();
-    brand.setId(1);
-
-    Product product = new Product();
-    product.setId(35455);
+    Integer productId = 35455;
+    Integer brandId = 1;
 
     Price price = new Price();
-    price.setBrand(brand);
-    price.setProduct(product);
+    price.setBrand(brandId);
+    price.setProduct(productId);
     price.setPriceList(1);
     price.setValue(35.50f);
     price.setStartDate(LocalDateTime.of(2025, 1, 1, 0, 0));
     price.setEndDate(LocalDateTime.of(2025, 12, 31, 23, 59));
 
-    // Cuando: Mapeo el Price a PriceResponse
     PriceResponse response = PriceMapper.map(price);
 
-    // Entonces: Verifico que el mapeo es correcto
     assertNotNull(response);
     assertEquals(1, response.getBrandId());
     assertEquals(35455, response.getProductId());
@@ -69,24 +61,20 @@ class PriceMapperTest {
 
   @Test
   void testMapPriceList() {
-    // Dado: Una lista de entidades Price
-    Brand brand = new Brand();
-    brand.setId(1);
-
-    Product product = new Product();
-    product.setId(35455);
+    Integer productId = 35455;
+    Integer brandId = 1;
 
     Price price1 = new Price();
-    price1.setBrand(brand);
-    price1.setProduct(product);
+    price1.setBrand(brandId);
+    price1.setProduct(productId);
     price1.setPriceList(1);
     price1.setValue(35.50f);
     price1.setStartDate(LocalDateTime.of(2025, 1, 1, 0, 0));
     price1.setEndDate(LocalDateTime.of(2025, 12, 31, 23, 59));
 
     Price price2 = new Price();
-    price2.setBrand(brand);
-    price2.setProduct(product);
+    price2.setBrand(brandId);
+    price2.setProduct(productId);
     price2.setPriceList(2);
     price2.setValue(40.00f);
     price2.setStartDate(LocalDateTime.of(2025, 6, 1, 0, 0));
@@ -94,10 +82,8 @@ class PriceMapperTest {
 
     List<Price> prices = Arrays.asList(price1, price2, null);
 
-    // Cuando: Mapeo la lista
     List<PriceResponse> responses = PriceMapper.map(prices);
 
-    // Entonces: Verifico que la lista se mapeó correctamente
     assertEquals(2, responses.size());
     assertEquals(35.50f, responses.get(0).getPrice());
     assertEquals(40.00f, responses.get(1).getPrice());
