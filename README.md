@@ -6,6 +6,7 @@
 * [Dependencias](#dependencias)
 * [Estructura](#estructura)
 * [Utilización](#utilización)
+* [Pruebas](#pruebas)
 <!-- TOC -->
 
 # Información
@@ -16,6 +17,17 @@
 - - **user:** sa
 - - **password:** qwerty
 - - **JDBC URL:** jdbc:h2:mem:core
+
+Se han creado las entidades (tablas) de BRAND y PRODUCT para simular un entorno 
+mas real ademas de reflejar asi una correcta configuración de las relaciones.
+
+Se ha utilizado Swagger como cliente de API para realizar pruebas manuales 
+con parametros customizables.
+
+Se utiliza un RestControllerAdvice (ApiExceptionHandler) y una excepción 
+generica (Exception) a modo de generar una respuesta a las excepciones ocurridas
+durante la ejecución, estas son mapeadas a un objeto (StandardizedApiExceptionResponse)
+a modo de cumplir con el estandar propuesto por la IETF [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807)
 
 # Dependencias
 
@@ -78,3 +90,11 @@ mvn test
 ```shell
 mvn clean package
 ```
+
+# Pruebas
+
+Se han hecho pruebas utilizando SonarQube
+```shell
+mvn clean verify sonar:sonar -Dsonar.token=<token> -Dsonar.host.url=<sonar_url> -Dsonar.projectKey=<project_key>
+```
+![img.png](img.png)
